@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <title>Supreme Arena Clash</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">⚔</span>
+        <div>
+          <strong>Supreme Arena Clash</strong>
+          <small>معركة عصا أصلية بفيزياء مرنة</small>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button id="soundBtn" class="icon-btn" aria-label="الصوت">🔊</button>
+        <button id="pauseBtn" class="icon-btn" aria-label="إيقاف">Ⅱ</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="menuScreen" class="screen active">
+        <div class="hero-card">
+          <div class="hero-art">
+            <div class="fighter fighter-a"><i></i><b></b><em></em></div>
+            <div class="fighter fighter-b"><i></i><b></b><em></em></div>
+            <span class="slash s1"></span><span class="slash s2"></span>
+          </div>
+          <div class="hero-copy">
+            <span class="eyebrow">ARENA • DUEL • CHAOS</span>
+            <h1>Supreme Arena<br><span>Clash</span></h1>
+            <p>لعبة قتال ثنائية الأبعاد أصلية مستوحاة من ألعاب مبارزات العصي، مع فيزياء، أسلحة متعددة، خصوم، خرائط، وتخصيص كامل.</p>
+            <div class="menu-grid">
+              <button class="primary menu-btn" data-action="start">ابدأ المعركة</button>
+              <button class="menu-btn" data-action="loadout">الأسلحة والشخصية</button>
+              <button class="menu-btn" data-action="modes">أوضاع اللعب</button>
+              <button class="menu-btn" data-action="help">طريقة اللعب</button>
+            </div>
+          </div>
+        </div>
+        <div class="credit">البرمجة والتطوير: <b>معاذ محمد عبد النبي</b></div>
+      </section>
+
+      <section id="loadoutScreen" class="screen">
+        <div class="panel">
+          <div class="panel-head"><button class="back-btn" data-action="menu">←</button><h2>تجهيز المقاتل</h2></div>
+          <div class="loadout-layout">
+            <div class="preview-box"><canvas id="previewCanvas" width="360" height="300"></canvas></div>
+            <div class="options">
+              <h3>لون المقاتل</h3>
+              <div id="colorChoices" class="choices"></div>
+              <h3>السلاح</h3>
+              <div id="weaponChoices" class="weapon-grid"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="modesScreen" class="screen">
+        <div class="panel">
+          <div class="panel-head"><button class="back-btn" data-action="menu">←</button><h2>أوضاع اللعب</h2></div>
+          <div class="mode-grid">
+            <button class="mode-card selected" data-mode="duel"><span>⚔️</span><b>مبارزة</b><small>لاعب ضد خصم ذكي</small></button>
+            <button class="mode-card" data-mode="survival"><span>♾️</span><b>البقاء</b><small>واجه موجات متتالية</small></button>
+            <button class="mode-card" data-mode="chaos"><span>💥</span><b>الفوضى</b><small>أسلحة وصناديق عشوائية</small></button>
+          </div>
+        </div>
+      </section>
+
+      <section id="helpScreen" class="screen">
+        <div class="panel">
+          <div class="panel-head"><button class="back-btn" data-action="menu">←</button><h2>طريقة اللعب</h2></div>
+          <div class="help-grid">
+            <div><b>الحركة</b><p>استخدم أزرار الاتجاهات على الهاتف أو A/D على لوحة المفاتيح.</p></div>
+            <div><b>القفز</b><p>اضغط زر القفز أو W / ↑.</p></div>
+            <div><b>الهجوم</b><p>زر الهجوم يطلق السلاح الحالي. بعض الأسلحة تعمل عند الضغط المستمر.</p></div>
+            <div><b>الهدف</b><p>أسقط الخصم من المنصة أو استنزف نقاط صحته.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gameScreen" class="screen game-screen">
+        <div class="game-wrap">
+          <canvas id="gameCanvas"></canvas>
+          <div id="hud">
+            <div class="hud-player"><span id="p1Dot"></span><div><b>أنت</b><div class="bar"><i id="p1Hp"></i></div></div></div>
+            <div class="hud-center"><span id="modeLabel">مبارزة</span><strong id="scoreLabel">0 - 0</strong><small id="waveLabel"></small></div>
+            <div class="hud-player enemy"><span id="p2Dot"></span><div><b>الخصم</b><div class="bar"><i id="p2Hp"></i></div></div></div>
+          </div>
+          <div id="weaponHud"><span id="weaponIcon">⚔️</span><b id="weaponName">شفرة</b><small id="ammoLabel">∞</small></div>
+          <div id="gameMessage"></div>
+
+          <div id="touchControls">
+            <div class="touch-left">
+              <button data-key="left">◀</button><button data-key="right">▶</button>
+            </div>
+            <div class="touch-right">
+              <button data-key="jump">⬆</button><button class="attack" data-key="attack">⚡</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="resultScreen" class="screen">
+        <div class="result-card">
+          <div id="resultIcon">🏆</div>
+          <h2 id="resultTitle">فوز!</h2>
+          <p id="resultText">أحسنت.</p>
+          <div class="result-stats"><span>النقاط <b id="finalScore">0</b></span><span>الضربات <b id="finalHits">0</b></span></div>
+          <button class="primary" data-action="restart">معركة جديدة</button>
+          <button data-action="menu">القائمة الرئيسية</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
